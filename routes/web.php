@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::view('/', '/laraveVue');
+Route::view('/AddUser', '/laraveVue');
+Route::view('/Listuser', '/laraveVue');
+
