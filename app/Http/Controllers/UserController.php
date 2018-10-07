@@ -8,11 +8,16 @@ use App\Http\Resources\User\UserResource;
 
 class UserController extends Controller
 {
+
+    // public function _construct() {
+    //     $this->middleware('auth:api')->except('index','show');
+    // }
+
     //
     public function index()
     {
         //
-        return UserResource::collection(User::all());
+        return UserResource::collection(User::paginate(5));
     }
 
 
