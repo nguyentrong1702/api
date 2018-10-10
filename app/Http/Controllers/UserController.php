@@ -8,8 +8,16 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+
 class UserController extends Controller
 {
+    public function getLogin() {
+        return view('login.login');
+    }
+    
+    public function getRegister() {
+        return view('login.register');
+    }
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -21,13 +29,16 @@ class UserController extends Controller
             }
             
         $credentials = $request->only('email', 'password');
+
         try {
-        if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
-        }
+            if (!$token = JWTAuth::attempt($credentials)) {
+                echo $token;
+                    return response()->json(['error' => 'invalid_credentials'], 401);
+            }
         } catch (JWTException $e) {
                 return response()->json(['error' => 'could_not_create_token'], 500);
         }
+       echo auth()->user();
         return response()->json(compact('token'));
     }
 
